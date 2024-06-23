@@ -118,6 +118,10 @@ const DropdownMenu = ({ menuVisible, toggleMenu, navigation }) => {
     return null;
   }
 
+  const handleLoginPress = () => {
+    navigation.navigate('PageFremium'); // Navega a la pantalla de login
+  };
+
   return (
     <View style={styles.dropdown}>
       <View style={styles.dropdownHeader}>
@@ -126,7 +130,7 @@ const DropdownMenu = ({ menuVisible, toggleMenu, navigation }) => {
       <TouchableOpacity
         style={styles.dropdownItem}
         onPress={() => {
-          navigation.navigate('PageServicePlumber');
+          navigation.navigate('PageFremium');
           toggleMenu();
         }}
       >
@@ -136,7 +140,7 @@ const DropdownMenu = ({ menuVisible, toggleMenu, navigation }) => {
       <TouchableOpacity
         style={styles.dropdownItem}
         onPress={() => {
-          navigation.navigate('PageServiceCarpenter');
+          navigation.navigate('Service2');
           toggleMenu();
         }}
       >
@@ -197,7 +201,7 @@ const DropdownMenu = ({ menuVisible, toggleMenu, navigation }) => {
   );
 };
 
-export default function PageHomeUser() {
+export default function PageServiceCarpenter() {
   const navigation = useNavigation();
   const [menuVisible, setMenuVisible] = useState(false);
   const [ratings, setRatings] = useState({ service1: 0, service2: 0, service3: 0 });
@@ -223,9 +227,7 @@ export default function PageHomeUser() {
       </View>
       <DropdownMenu menuVisible={menuVisible} toggleMenu={toggleMenu} navigation={navigation} />
       <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
-        <Text style={styles.title}>Favoritos</Text>
-        <Text style={styles.subTittle}>Aún no tienes favoritos. Busca algún negocio y agrégalo.</Text>
-        <Text style={styles.title}>Recomendados</Text>
+        <Text style={styles.title}>Carpintería</Text>
         <View style={styles.serviceContainer}>
           <View style={styles.imagePlaceholder} />
           <Text style={styles.serviceTitle}>Servicio</Text>
