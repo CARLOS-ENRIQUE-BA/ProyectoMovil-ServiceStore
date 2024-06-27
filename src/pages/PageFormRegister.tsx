@@ -65,7 +65,7 @@ export default function FormRegister() {
         <TextInput placeholder="Teléfono" style={styles.TextInput} />
         <TextInput placeholder="Dirección" style={styles.TextInput} />
         <TextInput placeholder="Contraseña" style={styles.TextInput} secureTextEntry />
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity  onPress={handleLoginPress} style={styles.button}>
           <Text style={styles.tittle}>Siguiente</Text>
         </TouchableOpacity>
         <Text style={styles.subTittle}>

@@ -9,6 +9,13 @@ import PageFremium from './src/pages/PageFremium';
 import PageHomeUser from './src/pages/PageHomeUser';
 import PageServicePlumber from './src/pages/PageServicePlumber';
 import PageServiceCarpenter from './src/pages/PageServiceCarpenter';
+import PageMoreInformation from './src/pages/PageMoreInformation';
+import NewDate from './src/pages/NewDate';
+import PageServiceElectrician from './src/pages/PageServiceElectrician';
+import PageServiceHairdresser from './src/pages/PageServiceHairdresser';
+import PageServiceManicure from './src/pages/PageServiceManicure';
+import PageServiceLocksmith from './src/pages/PageServiceLocksmith';
+import PageServiceMechanical from './src/pages/PageServiceMechanical';
 
 enableScreens(); // Habilita react-native-screens
 
@@ -26,8 +33,15 @@ export default function App() {
           <Stack.Screen name="Register" component={FormRegister} />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="HomeUser" component={PageHomeUser} />
+          <Stack.Screen name="PageMoreInformation" component={PageMoreInformation} />
+          <Stack.Screen name="NewDate" component={NewDate} />
           <Stack.Screen name="PageServicePlumber" component={PageServicePlumber} />
           <Stack.Screen name="PageServiceCarpenter" component={PageServiceCarpenter} />
+          <Stack.Screen name="PageServiceElectrician" component={PageServiceElectrician} />
+          <Stack.Screen name="PageServiceHairdresser" component={PageServiceHairdresser} />
+          <Stack.Screen name="PageServiceManicure" component={PageServiceManicure} />
+          <Stack.Screen name="PageServiceLocksmith" component={PageServiceLocksmith} />
+          <Stack.Screen name="PageServiceMechanical" component={PageServiceMechanical} />
           <Stack.Screen name="PageFremium" component={PageFremium} />
         </Stack.Navigator>
       </SafeAreaProvider>

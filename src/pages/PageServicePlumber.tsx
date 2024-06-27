@@ -130,7 +130,7 @@ const DropdownMenu = ({ menuVisible, toggleMenu, navigation }) => {
       <TouchableOpacity
         style={styles.dropdownItem}
         onPress={() => {
-          navigation.navigate('PageFremium');
+          navigation.navigate('PageServicePlumber');
           toggleMenu();
         }}
       >
@@ -140,7 +140,7 @@ const DropdownMenu = ({ menuVisible, toggleMenu, navigation }) => {
       <TouchableOpacity
         style={styles.dropdownItem}
         onPress={() => {
-          navigation.navigate('Service2');
+          navigation.navigate('PageServiceCarpenter');
           toggleMenu();
         }}
       >
@@ -150,7 +150,7 @@ const DropdownMenu = ({ menuVisible, toggleMenu, navigation }) => {
       <TouchableOpacity
         style={styles.dropdownItem}
         onPress={() => {
-          navigation.navigate('Service2');
+          navigation.navigate('PageServiceElectrician');
           toggleMenu();
         }}
       >
@@ -160,7 +160,7 @@ const DropdownMenu = ({ menuVisible, toggleMenu, navigation }) => {
       <TouchableOpacity
         style={styles.dropdownItem}
         onPress={() => {
-          navigation.navigate('Service2');
+          navigation.navigate('PageServiceHairdresser');
           toggleMenu();
         }}
       >
@@ -170,7 +170,7 @@ const DropdownMenu = ({ menuVisible, toggleMenu, navigation }) => {
       <TouchableOpacity
         style={styles.dropdownItem}
         onPress={() => {
-          navigation.navigate('Service2');
+          navigation.navigate('PageServiceManicure');
           toggleMenu();
         }}
       >
@@ -180,7 +180,7 @@ const DropdownMenu = ({ menuVisible, toggleMenu, navigation }) => {
       <TouchableOpacity
         style={styles.dropdownItem}
         onPress={() => {
-          navigation.navigate('Service2');
+          navigation.navigate('PageServiceLocksmith');
           toggleMenu();
         }}
       >
@@ -190,7 +190,7 @@ const DropdownMenu = ({ menuVisible, toggleMenu, navigation }) => {
       <TouchableOpacity
         style={styles.dropdownItem}
         onPress={() => {
-          navigation.navigate('Service2');
+          navigation.navigate('PageServiceMechanical');
           toggleMenu();
         }}
       >
@@ -217,6 +217,11 @@ export default function PageServicePlumber() {
     }));
   };
 
+  const handlePress = () => {
+    navigation.navigate('PageMoreInformation');
+  };
+
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -229,8 +234,12 @@ export default function PageServicePlumber() {
       <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
         <Text style={styles.title}>Plomería</Text>
         <View style={styles.serviceContainer}>
-          <View style={styles.imagePlaceholder} />
-          <Text style={styles.serviceTitle}>Servicio</Text>
+          <TouchableOpacity onPress={handlePress}>
+            <View style={styles.imagePlaceholder} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handlePress}>
+            <Text style={styles.serviceTitle}>Servicio</Text>
+          </TouchableOpacity>
           <StarRating
             rating={ratings.service1}
             setRating={(rating) => handleRatingChange('service1', rating)}
@@ -238,22 +247,30 @@ export default function PageServicePlumber() {
           <Text>Destapar el ducto de lavado</Text>
         </View>
         <View style={styles.serviceContainer}>
-          <View style={styles.imagePlaceholder} />
-          <Text style={styles.serviceTitle}>Servicio</Text>
+          <TouchableOpacity onPress={handlePress}>
+            <View style={styles.imagePlaceholder} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handlePress}>
+            <Text style={styles.serviceTitle}>Servicio</Text>
+          </TouchableOpacity>
           <StarRating
-            rating={ratings.service2}
-            setRating={(rating) => handleRatingChange('service2', rating)}
+            rating={ratings.service1}
+            setRating={(rating) => handleRatingChange('service1', rating)}
           />
-          <Text>Instalación de tubería</Text>
+          <Text>Destapar el ducto de lavado</Text>
         </View>
         <View style={styles.serviceContainer}>
-          <View style={styles.imagePlaceholder} />
-          <Text style={styles.serviceTitle}>Servicio</Text>
+          <TouchableOpacity onPress={handlePress}>
+            <View style={styles.imagePlaceholder} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handlePress}>
+            <Text style={styles.serviceTitle}>Servicio</Text>
+          </TouchableOpacity>
           <StarRating
-            rating={ratings.service3}
-            setRating={(rating) => handleRatingChange('service3', rating)}
+            rating={ratings.service1}
+            setRating={(rating) => handleRatingChange('service1', rating)}
           />
-          <Text>Instalación de tubería</Text>
+          <Text>Destapar el ducto de lavado</Text>
         </View>
       </ScrollView>
       <View style={styles.footer}>
