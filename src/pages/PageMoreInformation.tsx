@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -36,12 +36,12 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 150,
     marginBottom: 10,
-    backgroundColor: 'black', // Cuadro negro
   },
   serviceTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
+    color: 'black', // Color del título del servicio
   },
   rating: {
     flexDirection: 'row',
@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
   },
   dropdownItemText: {
     marginLeft: 10,
+    color: 'black', // Color del texto del item del dropdown
   },
   nextButton: {
     backgroundColor: '#EFD3A3',
@@ -106,7 +107,6 @@ const styles = StyleSheet.create({
   mainImage: {
     width: '100%',
     height: 200,
-    backgroundColor: 'black', // Cuadro negro
   },
   iconLocation: {
     flexDirection: 'row',
@@ -235,6 +235,13 @@ export default function PageMoreInformation() {
     navigation.navigate('NewDate');
   };
 
+  const images = {
+    service1: require('../assets/img/locksmith/img1.jpg'),
+    service2: require('../assets/img/mechanical/img2.jpg'),
+    service3: require('../assets/img/hairdresser/img3.jpg'),
+    mainImage: require('../assets/img/electrician/img1.jpg'),
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -245,41 +252,41 @@ export default function PageMoreInformation() {
       </View>
       <DropdownMenu menuVisible={menuVisible} toggleMenu={toggleMenu} navigation={navigation} />
       <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
-        <View style={styles.mainImage} />
+        <Image source={images.mainImage} style={styles.mainImage} />
         <StarRating rating={4} setRating={() => {}} />
         <View style={styles.iconLocation}>
           <Icon name="location-sharp" size={20} color="black" />
           <Text> Localizacion</Text>
         </View>
         <Text style={styles.subTittle}>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+          Servicios Eléctricos López, tu mejor opción para todas tus necesidades eléctricas.
         </Text>
         <View style={styles.serviceContainer}>
-          <View style={styles.imagePlaceholder} />
+          <Image source={images.service1} style={styles.imagePlaceholder} />
           <Text style={styles.serviceTitle}>Servicio 1</Text>
           <StarRating
             rating={ratings.service1}
             setRating={(rating) => handleRatingChange('service1', rating)}
           />
-          <Text>Mascarilla sencilla</Text>
+          <Text style={{ color: 'black' }}>Servicio de cerrajería</Text>
         </View>
         <View style={styles.serviceContainer}>
-          <View style={styles.imagePlaceholder} />
+          <Image source={images.service2} style={styles.imagePlaceholder} />
           <Text style={styles.serviceTitle}>Servicio 2</Text>
           <StarRating
             rating={ratings.service2}
             setRating={(rating) => handleRatingChange('service2', rating)}
           />
-          <Text>Mascarilla de coco</Text>
+          <Text style={{ color: 'black' }}>Reparación y cambios de aceite</Text>
         </View>
         <View style={styles.serviceContainer}>
-          <View style={styles.imagePlaceholder} />
+          <Image source={images.service3} style={styles.imagePlaceholder} />
           <Text style={styles.serviceTitle}>Servicio 3</Text>
           <StarRating
             rating={ratings.service3}
             setRating={(rating) => handleRatingChange('service3', rating)}
           />
-          <Text>Mascarilla con exfoliacion</Text>
+          <Text style={{ color: 'black' }}>Estilista y cortes de cabello</Text>
         </View>
         <TouchableOpacity style={styles.nextButton} onPress={handlePress}>
           <Text style={styles.nextButtonText}>Siguiente</Text>
@@ -289,7 +296,7 @@ export default function PageMoreInformation() {
         <TouchableOpacity onPress={() => navigation.navigate('HomeUser')}>
           <Icon name="home" size={30} color="black" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('AddService')}>
+        <TouchableOpacity onPress={() => navigation.navigate('HomeUser')}>
           <Icon name="heart" size={30} color="black" />
         </TouchableOpacity>
       </View>

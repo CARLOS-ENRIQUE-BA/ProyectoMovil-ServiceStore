@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     top: 40, // Ajusta este valor según sea necesario
     left: 20, // Ajusta este valor según sea necesario
   },
-  tittle: {
+  title: {
     fontSize: 30,
     color: 'black',
     fontWeight: 'bold',
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 20,
   },
-  TextInput: {
+  textInput: {
     borderColor: 'black',
     borderWidth: 1,
     width: 300,
@@ -37,8 +37,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingLeft: 10,
     marginTop: 20,
+    color: 'black', // Color del texto dentro del TextInput
   },
-  subTittle: {
+  subText: {
     marginTop: 20,
     fontSize: 16,
     color: 'black',
@@ -72,12 +73,12 @@ export default function FormRegister() {
           source={require('../assets/img/Logo.png')} // Asegúrate de ajustar la ruta según tu estructura de archivos
           style={styles.image}
         />
-        <TextInput placeholder="Nombre" style={styles.TextInput} />
-        <TextInput placeholder="Contraseña" style={styles.TextInput} secureTextEntry />
+        <TextInput placeholder="Nombre" style={styles.textInput} placeholderTextColor="black" />
+        <TextInput placeholder="Contraseña" style={styles.textInput} placeholderTextColor="black" secureTextEntry />
         <TouchableOpacity onPress={handleLoginPress} style={styles.button}>
-          <Text style={styles.tittle}>Siguiente</Text>
+          <Text style={styles.title}>Siguiente</Text>
         </TouchableOpacity>
-        <Text style={styles.subTittle}>
+        <Text style={styles.subText}>
           ¿Aun no te has registrado? Haz click{' '}
           <TouchableOpacity onPress={handleBackPress}>
             <Text style={styles.highlighted}>aquí</Text>

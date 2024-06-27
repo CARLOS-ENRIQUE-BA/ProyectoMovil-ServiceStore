@@ -288,13 +288,12 @@ export default function NewDate() {
           <TouchableOpacity style={styles.nextButton} onPress={handlePress}>
             <Text style={styles.nextButtonText}>Agendar</Text>
           </TouchableOpacity>
-          <View style={styles.imagePlaceholder} />
         </ScrollView>
         <View style={styles.footer}>
           <TouchableOpacity onPress={() => navigation.navigate('HomeUser')}>
             <Icon name="home" size={30} color="black" />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('AddService')}>
+          <TouchableOpacity onPress={() => navigation.navigate('HomeUser')}>
             <Icon name="heart" size={30} color="black" />
           </TouchableOpacity>
         </View>

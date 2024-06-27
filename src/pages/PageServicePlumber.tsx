@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -42,6 +42,11 @@ const styles = StyleSheet.create({
     height: 150,
     backgroundColor: 'black',
     marginBottom: 10,
+  },
+  image: {
+    width: '100%',
+    height: 150,
+    resizeMode: 'cover',
   },
   serviceTitle: {
     fontSize: 18,
@@ -221,6 +226,12 @@ export default function PageServicePlumber() {
     navigation.navigate('PageMoreInformation');
   };
 
+  // Rutas de las imágenes
+  const imagePaths = [
+    require('../assets/img/plumber/img1.jpg'),
+    require('../assets/img/plumber/img2.jpg'),
+    require('../assets/img/plumber/img3.jpg'),
+  ];
 
   return (
     <View style={styles.container}>
@@ -233,51 +244,27 @@ export default function PageServicePlumber() {
       <DropdownMenu menuVisible={menuVisible} toggleMenu={toggleMenu} navigation={navigation} />
       <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
         <Text style={styles.title}>Plomería</Text>
-        <View style={styles.serviceContainer}>
-          <TouchableOpacity onPress={handlePress}>
-            <View style={styles.imagePlaceholder} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={handlePress}>
-            <Text style={styles.serviceTitle}>Servicio</Text>
-          </TouchableOpacity>
-          <StarRating
-            rating={ratings.service1}
-            setRating={(rating) => handleRatingChange('service1', rating)}
-          />
-          <Text>Destapar el ducto de lavado</Text>
-        </View>
-        <View style={styles.serviceContainer}>
-          <TouchableOpacity onPress={handlePress}>
-            <View style={styles.imagePlaceholder} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={handlePress}>
-            <Text style={styles.serviceTitle}>Servicio</Text>
-          </TouchableOpacity>
-          <StarRating
-            rating={ratings.service1}
-            setRating={(rating) => handleRatingChange('service1', rating)}
-          />
-          <Text>Destapar el ducto de lavado</Text>
-        </View>
-        <View style={styles.serviceContainer}>
-          <TouchableOpacity onPress={handlePress}>
-            <View style={styles.imagePlaceholder} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={handlePress}>
-            <Text style={styles.serviceTitle}>Servicio</Text>
-          </TouchableOpacity>
-          <StarRating
-            rating={ratings.service1}
-            setRating={(rating) => handleRatingChange('service1', rating)}
-          />
-          <Text>Destapar el ducto de lavado</Text>
-        </View>
+        {imagePaths.map((path, index) => (
+          <View key={index} style={styles.serviceContainer}>
+            <TouchableOpacity onPress={handlePress}>
+              <Image source={path} style={styles.image} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handlePress}>
+              <Text style={styles.serviceTitle}>Servicio</Text>
+            </TouchableOpacity>
+            <StarRating
+              rating={ratings[`service${index + 1}`]}
+              setRating={(rating) => handleRatingChange(`service${index + 1}`, rating)}
+            />
+            <Text>Plomería García, expertos en reparación y cambio de válvulas</Text>
+          </View>
+        ))}
       </ScrollView>
       <View style={styles.footer}>
         <TouchableOpacity onPress={() => navigation.navigate('HomeUser')}>
           <Icon name="home" size={30} color="black" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('AddService')}>
+        <TouchableOpacity onPress={() => navigation.navigate('HomeUser')}>
           <Icon name="heart" size={30} color="black" />
         </TouchableOpacity>
       </View>

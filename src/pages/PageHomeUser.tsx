@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginVertical: 20,
   },
-  subTittle: {
+  subTitle: {
     fontSize: 15,
     color: 'black',
     textAlign: 'center',
@@ -40,13 +40,14 @@ const styles = StyleSheet.create({
   imagePlaceholder: {
     width: '100%',
     height: 150,
-    backgroundColor: 'black',
     marginBottom: 10,
+    resizeMode: 'cover',
   },
   serviceTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
+    color: 'black', // Color del título del servicio
   },
   rating: {
     flexDirection: 'row',
@@ -94,6 +95,7 @@ const styles = StyleSheet.create({
   },
   dropdownItemText: {
     marginLeft: 10,
+    color: 'black', // Color del texto del item del dropdown
   },
 });
 
@@ -228,11 +230,11 @@ export default function PageHomeUser() {
       <DropdownMenu menuVisible={menuVisible} toggleMenu={toggleMenu} navigation={navigation} />
       <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
         <Text style={styles.title}>Favoritos</Text>
-        <Text style={styles.subTittle}>Aún no tienes favoritos. Busca algún negocio y agrégalo.</Text>
+        <Text style={styles.subTitle}>Aún no tienes favoritos. Busca algún negocio y agrégalo.</Text>
         <Text style={styles.title}>Recomendados</Text>
         <View style={styles.serviceContainer}>
           <TouchableOpacity onPress={handlePress}>
-            <View style={styles.imagePlaceholder} />
+            <Image source={require('../assets/img/carpinter/img3.jpg')} style={styles.imagePlaceholder} />
           </TouchableOpacity>
           <TouchableOpacity onPress={handlePress}>
             <Text style={styles.serviceTitle}>Servicio</Text>
@@ -241,40 +243,40 @@ export default function PageHomeUser() {
             rating={ratings.service1}
             setRating={(rating) => handleRatingChange('service1', rating)}
           />
-          <Text>Destapar el ducto de lavado</Text>
+          <Text style={styles.subTitle}>servicio de carpintería</Text>
         </View>
         <View style={styles.serviceContainer}>
           <TouchableOpacity onPress={handlePress}>
-            <View style={styles.imagePlaceholder} />
+            <Image source={require('../assets/img/mechanical/img3.jpg')} style={styles.imagePlaceholder} />
           </TouchableOpacity>
           <TouchableOpacity onPress={handlePress}>
             <Text style={styles.serviceTitle}>Servicio</Text>
           </TouchableOpacity>
           <StarRating
-            rating={ratings.service1}
-            setRating={(rating) => handleRatingChange('service1', rating)}
+            rating={ratings.service2}
+            setRating={(rating) => handleRatingChange('service2', rating)}
           />
-          <Text>Destapar el ducto de lavado</Text>
+          <Text style={styles.subTitle}>Reparacion y cambio de valatas</Text>
         </View>
         <View style={styles.serviceContainer}>
           <TouchableOpacity onPress={handlePress}>
-            <View style={styles.imagePlaceholder} />
+            <Image source={require('../assets/img/plumber/img3.jpg')} style={styles.imagePlaceholder} />
           </TouchableOpacity>
           <TouchableOpacity onPress={handlePress}>
             <Text style={styles.serviceTitle}>Servicio</Text>
           </TouchableOpacity>
           <StarRating
-            rating={ratings.service1}
-            setRating={(rating) => handleRatingChange('service1', rating)}
+            rating={ratings.service3}
+            setRating={(rating) => handleRatingChange('service3', rating)}
           />
-          <Text>Destapar el ducto de lavado</Text>
+          <Text style={styles.subTitle}>Instalación y revición de plomería</Text>
         </View>
       </ScrollView>
       <View style={styles.footer}>
         <TouchableOpacity onPress={() => navigation.navigate('HomeUser')}>
           <Icon name="home" size={30} color="black" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('AddService')}>
+        <TouchableOpacity onPress={() => navigation.navigate('HomeUser')}>
           <Icon name="heart" size={30} color="black" />
         </TouchableOpacity>
       </View>

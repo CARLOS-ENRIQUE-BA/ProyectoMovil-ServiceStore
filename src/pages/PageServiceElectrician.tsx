@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -40,8 +40,8 @@ const styles = StyleSheet.create({
   imagePlaceholder: {
     width: '100%',
     height: 150,
-    backgroundColor: 'black',
     marginBottom: 10,
+    resizeMode: 'cover',
   },
   serviceTitle: {
     fontSize: 18,
@@ -235,7 +235,7 @@ export default function PageServiceElectrician() {
         <Text style={styles.title}>Electricidad</Text>
         <View style={styles.serviceContainer}>
           <TouchableOpacity onPress={handlePress}>
-            <View style={styles.imagePlaceholder} />
+            <Image source={require('../assets/img/electrician/img1.jpg')} style={styles.imagePlaceholder} />
           </TouchableOpacity>
           <TouchableOpacity onPress={handlePress}>
             <Text style={styles.serviceTitle}>Servicio</Text>
@@ -244,40 +244,40 @@ export default function PageServiceElectrician() {
             rating={ratings.service1}
             setRating={(rating) => handleRatingChange('service1', rating)}
           />
-          <Text>Destapar el ducto de lavado</Text>
+          <Text>Electricistas Fernández, tu solución confiable para reparaciones eléctricas</Text>
         </View>
         <View style={styles.serviceContainer}>
           <TouchableOpacity onPress={handlePress}>
-            <View style={styles.imagePlaceholder} />
+            <Image source={require('../assets/img/electrician/img2.jpg')} style={styles.imagePlaceholder} />
           </TouchableOpacity>
           <TouchableOpacity onPress={handlePress}>
             <Text style={styles.serviceTitle}>Servicio</Text>
           </TouchableOpacity>
           <StarRating
-            rating={ratings.service1}
-            setRating={(rating) => handleRatingChange('service1', rating)}
+            rating={ratings.service2}
+            setRating={(rating) => handleRatingChange('service2', rating)}
           />
-          <Text>Destapar el ducto de lavado</Text>
+          <Text>Servicios Eléctricos Martínez, expertos en mantenimiento y reparaciones</Text>
         </View>
         <View style={styles.serviceContainer}>
           <TouchableOpacity onPress={handlePress}>
-            <View style={styles.imagePlaceholder} />
+            <Image source={require('../assets/img/electrician/img3.jpg')} style={styles.imagePlaceholder} />
           </TouchableOpacity>
           <TouchableOpacity onPress={handlePress}>
             <Text style={styles.serviceTitle}>Servicio</Text>
           </TouchableOpacity>
           <StarRating
-            rating={ratings.service1}
-            setRating={(rating) => handleRatingChange('service1', rating)}
+            rating={ratings.service3}
+            setRating={(rating) => handleRatingChange('service3', rating)}
           />
-          <Text>Destapar el ducto de lavado</Text>
+          <Text>Electricidad Gutiérrez, asegurando la mejor calidad en cada reparación eléctrica</Text>
         </View>
       </ScrollView>
       <View style={styles.footer}>
         <TouchableOpacity onPress={() => navigation.navigate('HomeUser')}>
           <Icon name="home" size={30} color="black" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('AddService')}>
+        <TouchableOpacity onPress={() => navigation.navigate('HomeUser')}>
           <Icon name="heart" size={30} color="black" />
         </TouchableOpacity>
       </View>

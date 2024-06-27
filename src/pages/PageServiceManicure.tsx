@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -40,8 +40,8 @@ const styles = StyleSheet.create({
   imagePlaceholder: {
     width: '100%',
     height: 150,
-    backgroundColor: 'black',
     marginBottom: 10,
+    resizeMode: 'cover',
   },
   serviceTitle: {
     fontSize: 18,
@@ -235,7 +235,7 @@ export default function PageServiceManicure() {
         <Text style={styles.title}>Manicure</Text>
         <View style={styles.serviceContainer}>
           <TouchableOpacity onPress={handlePress}>
-            <View style={styles.imagePlaceholder} />
+            <Image source={require('../assets/img/manicure/img1.jpg')} style={styles.imagePlaceholder} />
           </TouchableOpacity>
           <TouchableOpacity onPress={handlePress}>
             <Text style={styles.serviceTitle}>Servicio</Text>
@@ -244,40 +244,40 @@ export default function PageServiceManicure() {
             rating={ratings.service1}
             setRating={(rating) => handleRatingChange('service1', rating)}
           />
-          <Text>Destapar el ducto de lavado</Text>
+          <Text>Manicure Elegante López, tus uñas perfectas siempre</Text>
         </View>
         <View style={styles.serviceContainer}>
           <TouchableOpacity onPress={handlePress}>
-            <View style={styles.imagePlaceholder} />
+            <Image source={require('../assets/img/manicure/img2.jpg')} style={styles.imagePlaceholder} />
           </TouchableOpacity>
           <TouchableOpacity onPress={handlePress}>
             <Text style={styles.serviceTitle}>Servicio</Text>
           </TouchableOpacity>
           <StarRating
-            rating={ratings.service1}
-            setRating={(rating) => handleRatingChange('service1', rating)}
+            rating={ratings.service2}
+            setRating={(rating) => handleRatingChange('service2', rating)}
           />
-          <Text>Destapar el ducto de lavado</Text>
+          <Text>Estudio de Uñas Pérez, especialistas en diseños y cuidado de uñas</Text>
         </View>
         <View style={styles.serviceContainer}>
           <TouchableOpacity onPress={handlePress}>
-            <View style={styles.imagePlaceholder} />
+            <Image source={require('../assets/img/manicure/img3.jpg')} style={styles.imagePlaceholder} />
           </TouchableOpacity>
           <TouchableOpacity onPress={handlePress}>
             <Text style={styles.serviceTitle}>Servicio</Text>
           </TouchableOpacity>
           <StarRating
-            rating={ratings.service1}
-            setRating={(rating) => handleRatingChange('service1', rating)}
+            rating={ratings.service3}
+            setRating={(rating) => handleRatingChange('service3', rating)}
           />
-          <Text>Destapar el ducto de lavado</Text>
+          <Text>Manicura y Estilo Gutiérrez, destacando la belleza de tus manos</Text>
         </View>
       </ScrollView>
       <View style={styles.footer}>
         <TouchableOpacity onPress={() => navigation.navigate('HomeUser')}>
           <Icon name="home" size={30} color="black" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('AddService')}>
+        <TouchableOpacity onPress={() => navigation.navigate('HomeUser')}>
           <Icon name="heart" size={30} color="black" />
         </TouchableOpacity>
       </View>
