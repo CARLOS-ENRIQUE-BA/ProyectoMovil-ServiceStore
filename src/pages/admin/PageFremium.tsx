@@ -91,9 +91,9 @@ export default function PageFremium() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Icon name="person" size={30} color="black" />
+        <Icon name="person-circle-sharp" size={35} color="black" />
         <TouchableOpacity onPress={toggleMenu}>
-          <Icon name="menu" size={30} color="black" />
+          <Icon name="menu" size={35} color="black" />
         </TouchableOpacity>
         {menuVisible && (
           <View style={styles.dropdown}>
@@ -118,7 +118,7 @@ export default function PageFremium() {
           ¿Eres un vendedor y quieres destacar entre la competencia? ¡No te pierdas la oportunidad de transformar tu negocio con nuestra suscripción premium!
         </Text>
         <Image
-          source={require('../assets/img/imgPago.png')} 
+          source={require('../../assets/img/imgPago.png')} 
           style={styles.image}
         />
         <Text style={styles.subTittle}>
@@ -129,7 +129,7 @@ export default function PageFremium() {
           {'\n'}- Gestión de Citas Mejorada: Herramientas avanzadas para la gestión de citas, incluyendo recordatorios automáticos y opciones de reprogramación flexibles.
         </Text>
         <Image
-          source={require('../assets/img/crown.gif')} 
+          source={require('../../assets/img/crown.gif')} 
           style={styles.image}
         />
       </ScrollView>
@@ -142,6 +142,9 @@ export default function PageFremium() {
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('AddService')}>
           <Icon name="add" size={30} color="black" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('AddService')}>
+          <Icon name="person" size={30} color="black" />
         </TouchableOpacity>
       </View>
     </View>

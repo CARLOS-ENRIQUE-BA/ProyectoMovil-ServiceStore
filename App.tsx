@@ -5,7 +5,7 @@ import { enableScreens } from 'react-native-screens';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import FormRegister from './src/pages/PageFormRegister'; // Asegúrate de ajustar la ruta según tu estructura de archivos
 import LoginScreen from './src/pages/PageFormLogin'; // Crea y ajusta la ruta a tu pantalla de Login
-import PageFremium from './src/pages/PageFremium';
+import PageFremium from './src/pages/admin/PageFremium';
 import PageHomeUser from './src/pages/PageHomeUser';
 import PageServicePlumber from './src/pages/PageServicePlumber';
 import PageServiceCarpenter from './src/pages/PageServiceCarpenter';
