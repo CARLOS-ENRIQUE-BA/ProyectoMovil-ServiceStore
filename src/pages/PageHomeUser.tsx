@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'rea
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import NavbarUser from '../components/organisms/NavbarUser';
+import OrganismDropdownMenu from '../components/organisms/OrganismDropdownMenu';
 
 const styles = StyleSheet.create({
   container: {
@@ -58,46 +59,6 @@ const styles = StyleSheet.create({
     color: '#FFD700',
     marginHorizontal: 2,
   },
-  footer: {
-    backgroundColor: 'white',
-    height: 60,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
-  dropdown: {
-    position: 'absolute',
-    top: 60,
-    right: 0,
-    width: 400,
-    backgroundColor: 'white',
-    borderColor: '#ccc',
-    borderWidth: 1,
-    zIndex: 1,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
-    elevation: 2,
-  },
-  dropdownHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 10,
-    backgroundColor: '#EFD3A3',
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-  },
-  dropdownItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 10,
-  },
-  dropdownItemText: {
-    marginLeft: 10,
-    color: 'black', // Color del texto del item del dropdown
-  },
 });
 
 const StarRating = ({ rating, setRating }) => {
@@ -112,90 +73,6 @@ const StarRating = ({ rating, setRating }) => {
           />
         </TouchableOpacity>
       ))}
-    </View>
-  );
-};
-
-const DropdownMenu = ({ menuVisible, toggleMenu, navigation }) => {
-  if (!menuVisible) {
-    return null;
-  }
-
-  return (
-    <View style={styles.dropdown}>
-      <View style={styles.dropdownHeader}>
-        <Text>Servicios</Text>
-      </View>
-      <TouchableOpacity
-        style={styles.dropdownItem}
-        onPress={() => {
-          navigation.navigate('PageServicePlumber');
-          toggleMenu();
-        }}
-      >
-        <Icon name="build-sharp" size={20} color="black" />
-        <Text style={styles.dropdownItemText}>Plomería</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.dropdownItem}
-        onPress={() => {
-          navigation.navigate('PageServiceCarpenter');
-          toggleMenu();
-        }}
-      >
-        <Icon name="hammer" size={20} color="black" />
-        <Text style={styles.dropdownItemText}>Carpintería</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.dropdownItem}
-        onPress={() => {
-          navigation.navigate('PageServiceElectrician');
-          toggleMenu();
-        }}
-      >
-        <Icon name="flash" size={20} color="black" />
-        <Text style={styles.dropdownItemText}>Electricidad</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.dropdownItem}
-        onPress={() => {
-          navigation.navigate('PageServiceHairdresser');
-          toggleMenu();
-        }}
-      >
-        <Icon name="cut-sharp" size={20} color="black" />
-        <Text style={styles.dropdownItemText}>Peluquería</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.dropdownItem}
-        onPress={() => {
-          navigation.navigate('PageServiceManicure');
-          toggleMenu();
-        }}
-      >
-        <Icon name="hand-right-sharp" size={20} color="black" />
-        <Text style={styles.dropdownItemText}>Manicure</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.dropdownItem}
-        onPress={() => {
-          navigation.navigate('PageServiceLocksmith');
-          toggleMenu();
-        }}
-      >
-        <Icon name="key" size={20} color="black" />
-        <Text style={styles.dropdownItemText}>Cerrajería</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.dropdownItem}
-        onPress={() => {
-          navigation.navigate('PageServiceMechanical');
-          toggleMenu();
-        }}
-      >
-        <Icon name="car-sport-sharp" size={20} color="black" />
-        <Text style={styles.dropdownItemText}>Mecánica Automotriz</Text>
-      </TouchableOpacity>
     </View>
   );
 };
@@ -228,7 +105,7 @@ export default function PageHomeUser() {
           <Icon name="menu" size={30} color="black" />
         </TouchableOpacity>
       </View>
-      <DropdownMenu menuVisible={menuVisible} toggleMenu={toggleMenu} navigation={navigation} />
+      <OrganismDropdownMenu menuVisible={menuVisible} toggleMenu={toggleMenu} navigation={navigation} />
       <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
         <Text style={styles.title}>Favoritos</Text>
         <Text style={styles.subTitle}>Aún no tienes favoritos. Busca algún negocio y agrégalo.</Text>
