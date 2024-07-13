@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import NavbarUser from '../components/organisms/NavbarUser';
 
 const styles = StyleSheet.create({
   container: {
@@ -272,14 +273,7 @@ export default function PageHomeUser() {
           <Text style={styles.subTitle}>Instalación y revición de plomería</Text>
         </View>
       </ScrollView>
-      <View style={styles.footer}>
-        <TouchableOpacity onPress={handlePress}>
-          <Icon name="home" size={30} color="black" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('PageFremium')}>
-          <Icon name="heart" size={30} color="black" />
-        </TouchableOpacity>
-      </View>
+      <NavbarUser/>
     </View>
   );
 }

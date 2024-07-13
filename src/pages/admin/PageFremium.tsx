@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import NavbarSeller from '../../components/organisms/NavbarSeller';
 
 const styles = StyleSheet.create({
   container: {
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
   },
-  tittle: {
+  title: {
     fontSize: 30,
     color: '#959292',
     fontWeight: 'bold',
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 20,
   },
-  TextInput: {
+  textInput: {
     borderColor: 'black',
     borderWidth: 1,
     width: 300,
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     marginTop: 20,
   },
-  subTittle: {
+  subTitle: {
     marginTop: 20,
     fontSize: 14,
     color: 'black',
@@ -77,10 +78,10 @@ const styles = StyleSheet.create({
     width: 300,
     paddingVertical: 10,
     backgroundColor: '#EFD3A3',
-  }
+  },
 });
 
-export default function PageFremium() {
+const PageFremium: React.FC = () => {
   const navigation = useNavigation();
   const [menuVisible, setMenuVisible] = useState(false);
 
@@ -110,18 +111,18 @@ export default function PageFremium() {
         )}
       </View>
       <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
-        <Text style={styles.tittle}>SUSCRIBETE</Text>
-        <Text style={styles.subTittle}>
+        <Text style={styles.title}>SUSCRÍBETE</Text>
+        <Text style={styles.subTitle}>
           ¡Potencia tu Negocio con Nuestra Suscripción Premium!
         </Text>
-        <Text style={styles.subTittle}>
+        <Text style={styles.subTitle}>
           ¿Eres un vendedor y quieres destacar entre la competencia? ¡No te pierdas la oportunidad de transformar tu negocio con nuestra suscripción premium!
         </Text>
         <Image
           source={require('../../assets/img/imgPago.png')} 
           style={styles.image}
         />
-        <Text style={styles.subTittle}>
+        <Text style={styles.subTitle}>
           Beneficios Exclusivos para Vendedores Premium:
           {'\n'}- Más Opciones en el Formulario de Servicio: Añade descripciones detalladas, imágenes adicionales, y especifica múltiples categorías para atraer a más clientes.
           {'\n'}- Mayor Visibilidad: Tus servicios serán destacados en los resultados de búsqueda, aumentando tus posibilidades de ser encontrado por nuevos clientes.
@@ -133,20 +134,9 @@ export default function PageFremium() {
           style={styles.image}
         />
       </ScrollView>
-      <View style={styles.footer}>
-        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-          <Icon name="home" size={30} color="black" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Premium')}>
-          <Icon name="diamond" size={30} color="black" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('AddService')}>
-          <Icon name="add" size={30} color="black" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('AddService')}>
-          <Icon name="person" size={30} color="black" />
-        </TouchableOpacity>
-      </View>
+      <NavbarSeller />
     </View>
   );
 }
+
+export default PageFremium;
