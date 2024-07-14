@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import NavbarUser from '../components/organisms/NavbarUser';
+import OrganismHeader from '../components/organisms/OrganismHeader';
+import OrganismDropdownMenu from '../components/organisms/OrganismDropdownMenu';
 
 const styles = StyleSheet.create({
   container: {
@@ -113,94 +116,6 @@ const StarRating = ({ rating, setRating }) => {
   );
 };
 
-const DropdownMenu = ({ menuVisible, toggleMenu, navigation }) => {
-  if (!menuVisible) {
-    return null;
-  }
-
-  const handleLoginPress = () => {
-    navigation.navigate('PageFremium'); // Navega a la pantalla de login
-  };
-
-  return (
-    <View style={styles.dropdown}>
-      <View style={styles.dropdownHeader}>
-        <Text>Servicios</Text>
-      </View>
-      <TouchableOpacity
-        style={styles.dropdownItem}
-        onPress={() => {
-          navigation.navigate('PageServicePlumber');
-          toggleMenu();
-        }}
-      >
-        <Icon name="build-sharp" size={20} color="black" />
-        <Text style={styles.dropdownItemText}>Plomería</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.dropdownItem}
-        onPress={() => {
-          navigation.navigate('PageServiceCarpenter');
-          toggleMenu();
-        }}
-      >
-        <Icon name="hammer" size={20} color="black" />
-        <Text style={styles.dropdownItemText}>Carpintería</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.dropdownItem}
-        onPress={() => {
-          navigation.navigate('PageServiceElectrician');
-          toggleMenu();
-        }}
-      >
-        <Icon name="flash" size={20} color="black" />
-        <Text style={styles.dropdownItemText}>Electricidad</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.dropdownItem}
-        onPress={() => {
-          navigation.navigate('PageServiceHairdresser');
-          toggleMenu();
-        }}
-      >
-        <Icon name="cut-sharp" size={20} color="black" />
-        <Text style={styles.dropdownItemText}>Peluquería</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.dropdownItem}
-        onPress={() => {
-          navigation.navigate('PageServiceManicure');
-          toggleMenu();
-        }}
-      >
-        <Icon name="hand-right-sharp" size={20} color="black" />
-        <Text style={styles.dropdownItemText}>Manicure</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.dropdownItem}
-        onPress={() => {
-          navigation.navigate('PageServiceLocksmith');
-          toggleMenu();
-        }}
-      >
-        <Icon name="key" size={20} color="black" />
-        <Text style={styles.dropdownItemText}>Cerrajería</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.dropdownItem}
-        onPress={() => {
-          navigation.navigate('PageServiceMechanical');
-          toggleMenu();
-        }}
-      >
-        <Icon name="car-sport-sharp" size={20} color="black" />
-        <Text style={styles.dropdownItemText}>Mecánica Automotriz</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
-
 export default function PageServiceHairdresser() {
   const navigation = useNavigation();
   const [menuVisible, setMenuVisible] = useState(false);
@@ -224,13 +139,8 @@ export default function PageServiceHairdresser() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Icon name="person" size={30} color="black" />
-        <TouchableOpacity onPress={toggleMenu}>
-          <Icon name="menu" size={30} color="black" />
-        </TouchableOpacity>
-      </View>
-      <DropdownMenu menuVisible={menuVisible} toggleMenu={toggleMenu} navigation={navigation} />
+      <OrganismHeader onMenuPress={toggleMenu} iconSize={30} />
+      <OrganismDropdownMenu menuVisible={menuVisible} toggleMenu={toggleMenu} navigation={navigation} />
       <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
         <Text style={styles.title}>Peluquería</Text>
         <View style={styles.serviceContainer}>
@@ -273,14 +183,7 @@ export default function PageServiceHairdresser() {
           <Text>Estilistas Gutiérrez, tu mejor elección para un cambio de imagen perfecto</Text>
         </View>
       </ScrollView>
-      <View style={styles.footer}>
-        <TouchableOpacity onPress={() => navigation.navigate('HomeUser')}>
-          <Icon name="home" size={30} color="black" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('HomeUser')}>
-          <Icon name="heart" size={30} color="black" />
-        </TouchableOpacity>
-      </View>
+      <NavbarUser/>
     </View>
   );
 }

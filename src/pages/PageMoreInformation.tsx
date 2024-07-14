@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import NavbarUser from '../components/organisms/NavbarUser';
+import OrganismHeader from '../components/organisms/OrganismHeader';
+import OrganismDropdownMenu from '../components/organisms/OrganismDropdownMenu';
 
 const styles = StyleSheet.create({
   container: {
@@ -131,101 +134,21 @@ const StarRating = ({ rating, setRating }) => {
   );
 };
 
-const DropdownMenu = ({ menuVisible, toggleMenu, navigation }) => {
-  if (!menuVisible) {
-    return null;
-  }
-
-  return (
-    <View style={styles.dropdown}>
-      <View style={styles.dropdownHeader}>
-        <Text>Servicios</Text>
-      </View>
-      <TouchableOpacity
-        style={styles.dropdownItem}
-        onPress={() => {
-          navigation.navigate('PageServicePlumber');
-          toggleMenu();
-        }}
-      >
-        <Icon name="build-sharp" size={20} color="black" />
-        <Text style={styles.dropdownItemText}>Plomería</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.dropdownItem}
-        onPress={() => {
-          navigation.navigate('PageServiceCarpenter');
-          toggleMenu();
-        }}
-      >
-        <Icon name="hammer" size={20} color="black" />
-        <Text style={styles.dropdownItemText}>Carpintería</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.dropdownItem}
-        onPress={() => {
-          navigation.navigate('PageServiceElectrician');
-          toggleMenu();
-        }}
-      >
-        <Icon name="flash" size={20} color="black" />
-        <Text style={styles.dropdownItemText}>Electricidad</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.dropdownItem}
-        onPress={() => {
-          navigation.navigate('PageServiceHairdresser');
-          toggleMenu();
-        }}
-      >
-        <Icon name="cut-sharp" size={20} color="black" />
-        <Text style={styles.dropdownItemText}>Peluquería</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.dropdownItem}
-        onPress={() => {
-          navigation.navigate('PageServiceManicure');
-          toggleMenu();
-        }}
-      >
-        <Icon name="hand-right-sharp" size={20} color="black" />
-        <Text style={styles.dropdownItemText}>Manicure</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.dropdownItem}
-        onPress={() => {
-          navigation.navigate('PageServiceLocksmith');
-          toggleMenu();
-        }}
-      >
-        <Icon name="key" size={20} color="black" />
-        <Text style={styles.dropdownItemText}>Cerrajería</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.dropdownItem}
-        onPress={() => {
-          navigation.navigate('PageServiceMechanical');
-          toggleMenu();
-        }}
-      >
-        <Icon name="car-sport-sharp" size={20} color="black" />
-        <Text style={styles.dropdownItemText}>Mecánica Automotriz</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
-
 export default function PageMoreInformation() {
   const navigation = useNavigation();
   const [menuVisible, setMenuVisible] = useState(false);
-  const [ratings, setRatings] = useState({ service1: 0, service2: 0, service3: 0 });
+  const [ratings, setRatings] = useState({
+    service1: 0,
+    service2: 0,
+    service3: 0,
+  });
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
 
   const handleRatingChange = (service, rating) => {
-    setRatings((prevRatings) => ({
+    setRatings(prevRatings => ({
       ...prevRatings,
       [service]: rating,
     }));
@@ -244,29 +167,29 @@ export default function PageMoreInformation() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Icon name="person" size={30} color="black" />
-        <TouchableOpacity onPress={toggleMenu}>
-          <Icon name="menu" size={30} color="black" />
-        </TouchableOpacity>
-      </View>
-      <DropdownMenu menuVisible={menuVisible} toggleMenu={toggleMenu} navigation={navigation} />
+      <OrganismHeader onMenuPress={toggleMenu} iconSize={30} />
+      <OrganismDropdownMenu
+        menuVisible={menuVisible}
+        toggleMenu={toggleMenu}
+        navigation={navigation}
+      />
       <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
         <Image source={images.mainImage} style={styles.mainImage} />
-        <StarRating rating={4} setRating={() => {}} />
+        <StarRating rating={4} setRating={() => { }} />
         <View style={styles.iconLocation}>
           <Icon name="location-sharp" size={20} color="black" />
           <Text> Localizacion</Text>
         </View>
         <Text style={styles.subTittle}>
-          Servicios Eléctricos López, tu mejor opción para todas tus necesidades eléctricas.
+          Servicios Eléctricos López, tu mejor opción para todas tus necesidades
+          eléctricas.
         </Text>
         <View style={styles.serviceContainer}>
           <Image source={images.service1} style={styles.imagePlaceholder} />
           <Text style={styles.serviceTitle}>Servicio 1</Text>
           <StarRating
             rating={ratings.service1}
-            setRating={(rating) => handleRatingChange('service1', rating)}
+            setRating={rating => handleRatingChange('service1', rating)}
           />
           <Text style={{ color: 'black' }}>Servicio de cerrajería</Text>
         </View>
@@ -275,7 +198,7 @@ export default function PageMoreInformation() {
           <Text style={styles.serviceTitle}>Servicio 2</Text>
           <StarRating
             rating={ratings.service2}
-            setRating={(rating) => handleRatingChange('service2', rating)}
+            setRating={rating => handleRatingChange('service2', rating)}
           />
           <Text style={{ color: 'black' }}>Reparación y cambios de aceite</Text>
         </View>
@@ -284,7 +207,7 @@ export default function PageMoreInformation() {
           <Text style={styles.serviceTitle}>Servicio 3</Text>
           <StarRating
             rating={ratings.service3}
-            setRating={(rating) => handleRatingChange('service3', rating)}
+            setRating={rating => handleRatingChange('service3', rating)}
           />
           <Text style={{ color: 'black' }}>Estilista y cortes de cabello</Text>
         </View>
@@ -292,14 +215,7 @@ export default function PageMoreInformation() {
           <Text style={styles.nextButtonText}>Siguiente</Text>
         </TouchableOpacity>
       </ScrollView>
-      <View style={styles.footer}>
-        <TouchableOpacity onPress={() => navigation.navigate('HomeUser')}>
-          <Icon name="home" size={30} color="black" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('HomeUser')}>
-          <Icon name="heart" size={30} color="black" />
-        </TouchableOpacity>
-      </View>
+      <NavbarUser />
     </View>
   );
 }

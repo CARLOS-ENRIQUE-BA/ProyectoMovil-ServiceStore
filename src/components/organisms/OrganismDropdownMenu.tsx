@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { View, Text, StyleSheet } from 'react-native';
 import MoleculeDropdownItem from '../molecules/MoleculeDropdownItem';
 
 interface OrganismDropdownMenuProps {
