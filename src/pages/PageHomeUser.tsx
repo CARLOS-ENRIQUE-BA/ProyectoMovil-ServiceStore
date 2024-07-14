@@ -1,11 +1,33 @@
-// PageHomeUser.tsx
 import React, { useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import OrganismHeader from '../components/organisms/OrganismHeader';
 import OrganismDropdownMenu from '../components/organisms/OrganismDropdownMenu';
 import NavbarUser from '../components/organisms/NavbarUser';
 import MoleculeServiceCard from '../components/molecules/MoleculeServiceCard';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+  scrollViewContent: {
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 30,
+    color: '#959292',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginVertical: 20,
+  },
+  subTitle: {
+    fontSize: 15,
+    color: 'black',
+    textAlign: 'center',
+    marginHorizontal: 20,
+  },
+});
 
 const PageHomeUser = () => {
   const navigation = useNavigation();
@@ -28,19 +50,13 @@ const PageHomeUser = () => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'white' }}>
+    <View style={styles.container}>
       <OrganismHeader onMenuPress={toggleMenu} />
       <OrganismDropdownMenu menuVisible={menuVisible} toggleMenu={toggleMenu} navigation={navigation} />
-      <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
-        <Text style={{ fontSize: 30, color: '#959292', fontWeight: 'bold', textAlign: 'center', marginVertical: 20 }}>
-          Favoritos
-        </Text>
-        <Text style={{ fontSize: 15, color: 'black', textAlign: 'center', marginHorizontal: 20 }}>
-          Aún no tienes favoritos. Busca algún negocio y agrégalo.
-        </Text>
-        <Text style={{ fontSize: 30, color: '#959292', fontWeight: 'bold', textAlign: 'center', marginVertical: 20 }}>
-          Recomendados
-        </Text>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <Text style={styles.title}>Favoritos</Text>
+        <Text style={styles.subTitle}>Aún no tienes favoritos. Busca algún negocio y agrégalo.</Text>
+        <Text style={styles.title}>Recomendados</Text>
 
         <MoleculeServiceCard
           imageSource={require('../assets/img/carpinter/img3.jpg')}
