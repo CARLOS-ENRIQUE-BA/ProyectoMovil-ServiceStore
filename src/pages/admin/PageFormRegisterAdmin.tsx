@@ -67,27 +67,22 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function FormRegister() {
+export default function FormRegisterAdmin() {
   const navigation = useNavigation();
   
   const [nombre, setNombre] = useState('');
   const [apellido, setApellido] = useState('');
   const [correo, setCorreo] = useState('');
-  const [telefono, setTelefono] = useState('');
   const [password, setPassword] = useState('');
 
   const validateInputs = () => {
-    if (!nombre || !apellido || !correo || !telefono || !password) {
+    if (!nombre || !apellido || !correo || !password) {
       Alert.alert('Error', 'Todos los campos son obligatorios');
       return false;
     }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(correo)) {
       Alert.alert('Error', 'Correo electrónico no válido');
-      return false;
-    }
-    if (!/^\d+$/.test(telefono)) {
-      Alert.alert('Error', 'El teléfono debe ser un número válido');
       return false;
     }
     if (password.length < 6) {
@@ -101,11 +96,10 @@ export default function FormRegister() {
     if (!validateInputs()) return;
   
     try {
-      const response = await axios.post('http://34.203.2.126:3000/vendedores/mysql', {
+      const response = await axios.post('http://34.203.2.126:3000/users/mysql', {
         nombre,
         apellido,
         correo,
-        telefono,
         password,
       }, {
         timeout: 5000,
@@ -128,18 +122,18 @@ export default function FormRegister() {
     navigation.navigate('Login');
   };
 
-  const handleRegisterClientPress = () => {
-    navigation.navigate('RegisterAdmin');
+  const handleRegisterAdminPress = () => {
+    navigation.navigate('Register');
   };
 
   return (
     <View style={styles.container}>
       <Image
-        source={require('../assets/img/Logo.png')}
+        source={require('../../assets/img/Logo.png')}
         style={styles.image}
       />
-      <TouchableOpacity style={styles.clientButton} onPress={handleRegisterClientPress}>
-        <Text style={styles.clientButtonText}>Cliente</Text>
+      <TouchableOpacity style={styles.clientButton} onPress={handleRegisterAdminPress}>
+        <Text style={styles.clientButtonText}>Vendedor</Text>
         <Icon name="arrow-forward-outline" size={20} color="black" style={styles.icon} />
       </TouchableOpacity>
       <TextInput 
@@ -162,13 +156,6 @@ export default function FormRegister() {
         placeholderTextColor="black" 
         value={correo} 
         onChangeText={setCorreo} 
-      />
-      <TextInput 
-        placeholder="Teléfono" 
-        style={styles.textInput} 
-        placeholderTextColor="black" 
-        value={telefono} 
-        onChangeText={setTelefono} 
       />
       <TextInput 
         placeholder="Contraseña" 

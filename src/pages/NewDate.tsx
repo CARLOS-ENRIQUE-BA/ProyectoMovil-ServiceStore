@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import DatePicker from 'react-native-date-picker';
-
+import axios from 'axios';
 
 const styles = StyleSheet.create({
   container: {
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 150,
     marginBottom: 10,
-    backgroundColor: 'black', // Cuadro negro
+    backgroundColor: 'black',
   },
   serviceTitle: {
     fontSize: 18,
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   mainImage: {
     width: '100%',
     height: 200,
-    backgroundColor: 'black', // Cuadro negro
+    backgroundColor: 'black',
   },
   iconLocation: {
     flexDirection: 'row',
@@ -241,63 +241,91 @@ const DropdownMenu = ({ menuVisible, toggleMenu, navigation }) => {
 };
 
 export default function NewDate() {
-    const navigation = useNavigation();
-    const [menuVisible, setMenuVisible] = useState(false);
-    const [ratings, setRatings] = useState({ service1: 0, service2: 0, service3: 0 });
-    const [selectedDate, setSelectedDate] = useState(new Date()); // Estado para la fecha seleccionada
-    const [showDatePicker, setShowDatePicker] = useState(false); // Estado para mostrar el selector de fecha
-  
-    const toggleMenu = () => {
-      setMenuVisible(!menuVisible);
-    };
-  
-    const handleRatingChange = (service, rating) => {
-      setRatings((prevRatings) => ({
-        ...prevRatings,
-        [service]: rating,
-      }));
-    };
-  
-    const handlePress = () => {
-      navigation.navigate('HomeUser');
-    };
-  
-    return (
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <Icon name="person" size={30} color="black" />
-          <TouchableOpacity onPress={toggleMenu}>
-            <Icon name="menu" size={30} color="black" />
-          </TouchableOpacity>
-        </View>
-        <DropdownMenu menuVisible={menuVisible} toggleMenu={toggleMenu} navigation={navigation} />
-        <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
-          <Text style={styles.tittle}>Rellene el formulario para agendar una cita.</Text>
-          <TextInput placeholder="Nombre" style={styles.TextInput} />
-          {/* Reemplazar TextInput para la fecha con TouchableOpacity que muestra el DatePicker */}
-          <TouchableOpacity style={styles.TextInput} onPress={() => setShowDatePicker(true)}>
-            <Text>{selectedDate.toLocaleDateString()}</Text>
-          </TouchableOpacity>
-          {showDatePicker && (
-            <DatePicker
-              date={selectedDate}
-              onDateChange={setSelectedDate}
-              mode="datetime" // Elige el modo que necesites (fecha, hora, datetime)
-            />
-          )}
-          <TouchableOpacity style={styles.nextButton} onPress={handlePress}>
-            <Text style={styles.nextButtonText}>Agendar</Text>
-          </TouchableOpacity>
-        </ScrollView>
-        <View style={styles.footer}>
-          <TouchableOpacity onPress={() => navigation.navigate('HomeUser')}>
-            <Icon name="home" size={30} color="black" />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('HomeUser')}>
-            <Icon name="heart" size={30} color="black" />
-          </TouchableOpacity>
-        </View>
+  const navigation = useNavigation();
+  const [menuVisible, setMenuVisible] = useState(false);
+  const [ratings, setRatings] = useState({ service1: 0, service2: 0, service3: 0 });
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [nombre, setNombre] = useState('');
+  const [hora, setHora] = useState('');
+
+  const toggleMenu = () => {
+    setMenuVisible(!menuVisible);
+  };
+
+  const handleRatingChange = (service, rating) => {
+    setRatings((prevRatings) => ({
+      ...prevRatings,
+      [service]: rating,
+    }));
+  };
+
+  const handlePress = async () => {
+    try {
+      const response = await axios.post('http://34.203.2.126:3000/appointments/mysql', {
+        nombre,
+        fecha: selectedDate.toISOString().split('T')[0],
+        hora,
+      });
+
+      if (response.status === 201) {
+        Alert.alert('Éxito', 'Cita agendada exitosamente', [
+          { text: 'OK', onPress: () => navigation.navigate('HomeUser') }
+        ]);
+      } else {
+        Alert.alert('Error', 'Error al agendar la cita');
+      }
+    } catch (error) {
+      console.error('Error agendando la cita:', error);
+      Alert.alert('Error', 'Hubo un problema al agendar la cita');
+    }
+  };
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Icon name="person" size={30} color="black" />
+        <TouchableOpacity onPress={toggleMenu}>
+          <Icon name="menu" size={30} color="black" />
+        </TouchableOpacity>
       </View>
-    );
-  }
-  
+      <DropdownMenu menuVisible={menuVisible} toggleMenu={toggleMenu} navigation={navigation} />
+      <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
+        <Text style={styles.tittle}>Rellene el formulario para agendar una cita.</Text>
+        <TextInput
+          placeholder="Nombre"
+          style={styles.TextInput}
+          value={nombre}
+          onChangeText={setNombre}
+        />
+        <TouchableOpacity style={styles.TextInput} onPress={() => setShowDatePicker(true)}>
+          <Text>{selectedDate.toLocaleDateString()}</Text>
+        </TouchableOpacity>
+        {showDatePicker && (
+          <DatePicker
+            date={selectedDate}
+            onDateChange={setSelectedDate}
+            mode="datetime"
+          />
+        )}
+        <TextInput
+          placeholder="Hora"
+          style={styles.TextInput}
+          value={hora}
+          onChangeText={setHora}
+        />
+        <TouchableOpacity style={styles.nextButton} onPress={handlePress}>
+          <Text style={styles.nextButtonText}>Agendar</Text>
+        </TouchableOpacity>
+      </ScrollView>
+      <View style={styles.footer}>
+        <TouchableOpacity onPress={() => navigation.navigate('HomeUser')}>
+          <Icon name="home" size={30} color="black" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('HomeUser')}>
+          <Icon name="heart" size={30} color="black" />
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+}

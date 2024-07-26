@@ -18,10 +18,10 @@ const NavbarSeller: React.FC = () => {
 
   return (
     <View style={styles.footer}>
-      <IconButton onPress={() => navigation.navigate('HomeUser')} iconName="home" iconSize={30} iconColor="black" />
-      <IconButton onPress={() => navigation.navigate('Premium')} iconName="diamond" iconSize={30} iconColor="black" />
+      <IconButton onPress={() => navigation.navigate('HomeSeller')} iconName="home" iconSize={30} iconColor="black" />
+      <IconButton onPress={() => navigation.navigate('PageFremium')} iconName="diamond" iconSize={30} iconColor="black" />
       <IconButton onPress={() => navigation.navigate('AddService')} iconName="add" iconSize={30} iconColor="black" />
-      <IconButton onPress={() => navigation.navigate('Profile')} iconName="person" iconSize={30} iconColor="black" />
+      <IconButton onPress={() => navigation.navigate('PageProfileSeller')} iconName="person" iconSize={30} iconColor="black" />
     </View>
   );
 };

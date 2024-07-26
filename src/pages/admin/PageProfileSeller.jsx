@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import NavbarSeller from '../../components/organisms/NavbarSeller';
+import axios from 'axios';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+  },
+  containerInfo: {
+    width: '90%',
+    marginVertical: 20,
+  },
+  mainImage: {
+    width: '100%',
+    height: 250,
   },
   header: {
     backgroundColor: '#EFD3A3',
@@ -17,11 +26,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
   },
+  name: {
+    fontSize: 15,
+    color: 'black',
+    fontWeight: 'bold',
+  },
   title: {
     fontSize: 30,
-    color: '#959292',
+    color: 'black',
     fontWeight: 'bold',
-    textAlign: 'center',
     marginVertical: 20,
   },
   subTitle: {
@@ -48,7 +61,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
-    color: 'black', // Color del título del servicio
+    color: 'black',
   },
   rating: {
     flexDirection: 'row',
@@ -96,7 +109,45 @@ const styles = StyleSheet.create({
   },
   dropdownItemText: {
     marginLeft: 10,
-    color: 'black', // Color del texto del item del dropdown
+    color: 'black',
+  },
+  profile: {
+    marginTop: 30,
+    width: 80,
+    height: 80,
+    borderRadius: 100,
+    backgroundColor: 'lightgray',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  tableHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 10,
+    backgroundColor: '#EFD3A3',
+    borderBottomWidth: 1,
+    borderBottomColor: 'gray',
+  },
+  tableRow: {
+    flexDirection: 'row',
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: 'lightgray',
+  },
+  tableCell: {
+    fontSize: 16,
+    color: 'black',
+    width: 100,
+    textAlign: 'center',
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+  },
+  icon: {
+    paddingHorizontal: 35,
+  },
+  scrollView: {
+    flexDirection: 'row',
+    paddingVertical: 10,
   },
 });
 
@@ -200,62 +251,98 @@ const DropdownMenu = ({ menuVisible, toggleMenu, navigation }) => {
   );
 };
 
-export default function PageHomeSeller() {
+const Table = ({ data, onDelete }) => {
+  const renderItem = ({ item }) => (
+    <View style={styles.tableRow}>
+      <Text style={styles.tableCell}>{item.fecha}</Text>
+      <Text style={styles.tableCell}>{item.hora}</Text>
+      <Text style={styles.tableCell}>{item.nombre}</Text>
+      <TouchableOpacity onPress={() => onDelete(item.id)}>
+        <Icon name="trash" size={24} color="red" style={styles.icon} />
+      </TouchableOpacity>
+    </View>
+  );
+
+  return (
+    <ScrollView horizontal>
+      <View>
+        <View style={styles.tableHeader}>
+          <Text style={styles.tableCell}>Fecha</Text>
+          <Text style={styles.tableCell}>Hora</Text>
+          <Text style={styles.tableCell}>Nombre</Text>
+          <Text style={styles.tableCell}>Acciones</Text>
+        </View>
+        <FlatList
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id.toString()}
+        />
+      </View>
+    </ScrollView>
+  );
+};
+
+export default function PageProfileSeller() {
   const navigation = useNavigation();
   const [menuVisible, setMenuVisible] = useState(false);
   const [ratings, setRatings] = useState({ service1: 0, service2: 0, service3: 0 });
+  const [appointments, setAppointments] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://34.203.2.126:3000/appointments/mysql');
+        setAppointments(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+
+    const intervalId = setInterval(fetchData, 30000);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
 
-  const handleRatingChange = (service, rating) => {
-    setRatings((prevRatings) => ({
-      ...prevRatings,
-      [service]: rating,
-    }));
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://34.203.2.126:3000/appointments/mysql/${id}`);
+      // Actualiza la lista de citas después de eliminar
+      setAppointments((prevAppointments) => 
+        prevAppointments.filter((appointment) => appointment.id !== id)
+      );
+    } catch (error) {
+      console.error('Error deleting appointment:', error);
+    }
   };
-
-  const handlePress = () => {
-    navigation.navigate('PageMoreInformation');
-  };
+  
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
         <Icon name="person" size={30} color="black" />
+        </TouchableOpacity>
         <TouchableOpacity onPress={toggleMenu}>
-          <Icon name="menu" size={30} color="black" />
+          <Icon name="menu" size={24} color="black" />
         </TouchableOpacity>
       </View>
-      <DropdownMenu menuVisible={menuVisible} toggleMenu={toggleMenu} navigation={navigation} />
       <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
-        <Text style={styles.title}>Servicios ofrecidos</Text>
-        <View style={styles.serviceContainer}>
-          <TouchableOpacity onPress={handlePress}>
-            <Image source={require('../../assets/img/carpinter/img3.jpg')} style={styles.imagePlaceholder} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={handlePress}>
-            <Text style={styles.serviceTitle}>Servicio</Text>
-          </TouchableOpacity>
-          <StarRating
-            rating={ratings.service1}
-            setRating={(rating) => handleRatingChange('service1', rating)}
-          />
-          <Text style={styles.subTitle}>servicio de carpintería</Text>
+        <Image source={require('../../assets/img/im.png')} style={styles.mainImage} />
+        <View style={styles.containerInfo}>
+          <Text style={styles.title}>Juan Mecanico</Text>
+          <StarRating rating={4} setRating={() => { }} />
+          <Text style={styles.name}>Nombre: Juan Pérez</Text>
+          <Text style={styles.name}>Profesión: Mecánico Automotriz</Text>
         </View>
-        <View style={styles.serviceContainer}>
-          <TouchableOpacity onPress={handlePress}>
-            <Image source={require('../../assets/img/mechanical/img3.jpg')} style={styles.imagePlaceholder} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={handlePress}>
-            <Text style={styles.serviceTitle}>Servicio</Text>
-          </TouchableOpacity>
-          <StarRating
-            rating={ratings.service2}
-            setRating={(rating) => handleRatingChange('service2', rating)}
-          />
-          <Text style={styles.subTitle}>Reparacion y cambio de valatas</Text>
+        <View style={styles.containerInfo}>
+          <Text style={styles.title}>Citas</Text>
+          <Table data={appointments} onDelete={handleDelete} />
         </View>
       </ScrollView>
       <NavbarSeller />
